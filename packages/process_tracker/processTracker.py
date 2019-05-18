@@ -59,6 +59,8 @@ class ProcessTracker(object):
                 time_start = datetime.datetime.now()
                 last_pid = pid
                 name_process = self._get_porcess_name(pid)
+                if name_process is None:
+                    continue
                 while last_pid == pid:
                     hdlr = win32gui.GetForegroundWindow()
                     pid = win32process.GetWindowThreadProcessId(hdlr)[1]
