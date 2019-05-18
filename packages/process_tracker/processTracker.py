@@ -64,4 +64,4 @@ class ProcessTracker(object):
                     pid = win32process.GetWindowThreadProcessId(hdlr)[1]
                     time.sleep(0.1)
                 time_end = datetime.datetime.now()
-                print("{}\t|\t{} - {}".format(name_process, time_start, time_end))
+                logging.info("{}\t|\t{} - {}".format(name_process, time_start, time_end))
