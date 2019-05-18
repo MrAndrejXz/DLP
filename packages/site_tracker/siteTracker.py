@@ -12,7 +12,7 @@ import re
 
 class SiteTracker(object):
     __chrome = False
-    __yandex = False
+    # __yandex = False
 
     def __init__(self):
         """
@@ -42,21 +42,21 @@ class SiteTracker(object):
         else:
             logging.debug('Инициализация Chrome...\tFalse')
 
-        logging.debug('Инициализация Yandex...')
-        self.__list_path_histoy_yandex = glob.glob(
-            r'{}\Users\*\AppData\Local\Yandex\YandexBrowser\User Data\**\History'.format(os.environ['SYSTEMDRIVE']),
-            recursive=True)
-        if len(self.__list_path_histoy_yandex) != 0:
-            self.__yandex = True
-            logging.debug('Инициализация Yandex...\tOK')
-            logging.debug('Запрет \'Инкогнито\' Yandex...')
-            if self.__set_reg(r'Software\Policies\YandexBrowser', 'IncognitoModeAvailability', 1):
-                logging.debug('Запрет \'Инкогнито\' Yandex...\tОК')
-            else:
-                logging.debug('Запрет \'Инкогнито\' Yandex...\tFalse')
-        else:
-            logging.debug('Инициализация Yandex...\tFalse')
-        logging.debug('Инициализация браузеров...\tОК')
+        # logging.debug('Инициализация Yandex...')
+        # self.__list_path_histoy_yandex = glob.glob(
+        #     r'{}\Users\*\AppData\Local\Yandex\YandexBrowser\User Data\**\History'.format(os.environ['SYSTEMDRIVE']),
+        #     recursive=True)
+        # if len(self.__list_path_histoy_yandex) != 0:
+        #     self.__yandex = True
+        #     logging.debug('Инициализация Yandex...\tOK')
+        #     logging.debug('Запрет \'Инкогнито\' Yandex...')
+        #     if self.__set_reg(r'Software\Policies\YandexBrowser', 'IncognitoModeAvailability', 1):
+        #         logging.debug('Запрет \'Инкогнито\' Yandex...\tОК')
+        #     else:
+        #         logging.debug('Запрет \'Инкогнито\' Yandex...\tFalse')
+        # else:
+        #     logging.debug('Инициализация Yandex...\tFalse')
+        # logging.debug('Инициализация браузеров...\tОК')
 
     @staticmethod
     def __set_reg(reg_path, name, value):
@@ -98,10 +98,10 @@ class SiteTracker(object):
             logging.debug('Копирование истории Chrome...')
             self.__copy_files('chrome', self.__list_path_histoy_chrome)
             logging.debug('Копирование истории Chrome...\tОК')
-        if self.__yandex:
-            logging.debug('Копирование истории Yandex...')
-            self.__copy_files('yandex', self.__list_path_histoy_yandex)
-            logging.debug('Копирование истории Yandex...\tОК')
+        # if self.__yandex:
+        #     logging.debug('Копирование истории Yandex...')
+        #     self.__copy_files('yandex', self.__list_path_histoy_yandex)
+        #     logging.debug('Копирование истории Yandex...\tОК')
 
     def __check(self, browser):
         """
@@ -111,7 +111,6 @@ class SiteTracker(object):
         """
         for i in glob.glob(r'packages\site_tracker\temp\{}\*'.format(browser)):
             user =i.split('.')[1]
-            print(user)
             conn = sqlite3.connect(i)
             cur = conn.cursor()
             cur.execute(
@@ -147,9 +146,9 @@ class SiteTracker(object):
                 self.data["History"]["last_chrome"] = '1601-01-01 07:00:00'
             logging.debug('Проверка истории на наличие новых записей Chrome')
             self.__check('chrome')
-        if self.__yandex:
-            logging.debug('Проверка истории на наличие новых записей Yandex')
-            self.__check('yandex')
+        # if self.__yandex:
+        #     logging.debug('Проверка истории на наличие новых записей Yandex')
+        #     self.__check('yandex')
 
     def copy_check(self):
         while True:
