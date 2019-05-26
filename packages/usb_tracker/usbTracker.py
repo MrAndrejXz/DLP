@@ -29,11 +29,10 @@ class USBTracker(object):
         print(usb_list)
 
     def check(self):
-        usb_list_old = self.locate_usb()
+        usb_list_old = list()
         while True:
             usb_list_now = self.locate_usb()
             if usb_list_now == usb_list_old:
-                usb_list_old = usb_list_now
                 time.sleep(0.1)
                 continue
             else:
